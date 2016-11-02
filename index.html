@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--ng-app directive goes in html tag-->
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Very Simple Todo FullStack</title>
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+    <!-- endbower -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/app/styles/styles.css">
+    <!-- endinject -->
+</head>
+
+<!--ng-controller directive goes in body tag-->
+<body ng-controller="TodoController as vm">
+<pre>{{vm.todo}}</pre>
+    <div class="container">
+        <div>
+            <div class="col-md-12 jumbotron">
+                <h1>Not Simple Todo FullStack</h1>
+            </div>
+            <!--Panel 1 Left side goes below here-->
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Add ToDo Item</div>
+                    <div class="panel-body">
+                        <label>Input</label>
+                        <input type="text" class="form-control form-group" ng-model="vm.input">
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select class="form-control" ng-model="vm.priority">
+                                <option value="1">High Priority</option>
+                                <option value="2">Medium Priority</option>
+                                <option value="3">Low Priority</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Add Todo button -->
+                    <div class="panel-footer">
+                        <button class="btn btn-default btn-primary" value="" ng-click="vm.addItem()">Add ToDo</button>
+                    </div>
+                </div>
+            </div>
+            <!--Panel 2 Right side goes below here, Buttons for ordering list-->
+            <div class="col-md-8 ">
+                <div class="panel panel-default ">
+                    <div class="panel-heading ">
+                        <div class="btn-group">
+                            <button ng-click="vm.sortToDo('priority')" class="btn btn-primary btn-sm">Order by highest priority</button>
+                            <button ng-click="vm.sortToDo('-priority')" class="btn btn-primary btn-sm">Order by lowest priority</button>
+                            <button ng-click="vm.sortToDo('input')" class="btn btn-primary btn-sm">Order alphabetically</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <!--Lines above here ok-->
+                    <!--Fix below this line with panels, rows or table-->
+                    <table class="table ">
+                    <!--Order by priority-->
+                        <tr ng-repeat="items in vm.todo | orderBy:vm.order">
+                            <!-- setting up the priority in order to make it easier to sort -->
+                            <td >{{items.toDoId}}</td>
+                            <td> {{items.name}} </td>
+                            <td> {{items.priority}} </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" ng-click="vm.deleteItem(items.toDoId)">Delete
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success" ng-click="vm.PopulatItems(items)">Update
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+
+                   
+                    <!--Lines above added -->
+                </div>
+            </div>
+        </div>
+        <!--/col-->
+        <!--<pre>{{vm.todo | json}}</pre>-->
+        <!-- bower:js -->
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+        <!-- endbower -->
+        <!--<h1>HEY You</h1>-->
+        <!-- inject:js -->
+        <script src="/app/app.js"></script>
+        <script src="/app/service.js"></script>
+        <script src="/app/service2.js"></script>
+        <script src="/app/TodoController.js"></script>
+        <script src="/app/TodoFactory.js"></script>
+        <!-- endinject -->
+    </body>
+
+    </html>
